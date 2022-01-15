@@ -8,6 +8,7 @@ ARG PORTAINER_PASSWORD
 ARG PORTAINER_USERNAME
 ARG PORTAINER_IMAGE_NAME
 ARG PORTAINER_SERVICE_NAME
+ARG CRON_SCHEDULE
 #ENV PORTAINER_HOST=$PORTAINER_HOST
 RUN touch /etc/profile
 RUN echo "export PORTAINER_HOST='${PORTAINER_HOST}'\n" >> /etc/profile
@@ -15,6 +16,7 @@ RUN echo "export PORTAINER_PASSWORD='${PORTAINER_PASSWORD}'\n" >> /etc/profile
 RUN echo "export PORTAINER_USERNAME='${PORTAINER_USERNAME}'\n" >> /etc/profile
 RUN echo "export PORTAINER_IMAGE_NAME='${PORTAINER_IMAGE_NAME}'\n" >> /etc/profile
 RUN echo "export PORTAINER_SERVICE_NAME='${PORTAINER_SERVICE_NAME}'\n" >> /etc/profile
+
 ENV SOMETHING=anything
 RUN echo "${SOMETHING}" >> /root/env
 RUN echo $SOMETHING >> /root/env
@@ -22,7 +24,7 @@ COPY update_portainer_service.sh /home/bin/update_portainer_service.sh
 
 RUN chmod u+x /home/bin/update_portainer_service.sh
 ADD run_cron /etc/cron.d/run_cron
-
+#RUN printf '%s\n%s\n' "${CRON_SCHEDULE} " "$(cat /etc/cron.d/run_cron)" >/etc/cron.d/run_cron
 #RUN echo "export PORTAINER_HOST=${PORTAINER_HOST}" > /etc/profile
 #RUN echo $PORTAINER_HOST > /etc/profile
 #RUN echo "${PORTAINER_HOST}" > /etc/profile

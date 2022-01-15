@@ -2,6 +2,8 @@
 
 source /etc/profile
 
+cat /etc/cron.d/run_cron
+
 USERNAME=$PORTAINER_USERNAME
 PASSWORD=$PORTAINER_PASSWORD
 HOST=$PORTAINER_HOST

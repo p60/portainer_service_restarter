@@ -11,6 +11,7 @@ PASSWORD=$PORTAINER_PASSWORD
 HOST=$PORTAINER_HOST
 SERVICE_NAME=$PORTAINER_SERVICE_NAME
 IMAGE_NAME=$PORTAINER_IMAGE_NAME
+SCHEDULE=$CRON_SCHEDULE
 echo $HOST
 
 LOGIN_TOKEN=$(curl -k -s -H "Content-Type: application/json" -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\"}" -X POST $HOST/api/auth | jq -r .jwt)
@@ -21,6 +22,8 @@ echo $ENDPOINT_ID
 echo $SERVICE_NAME
 curl -k -s -H "Authorization: Bearer $LOGIN_TOKEN" "$HOST/api/endpoints/${ENDPOINT_ID}/docker/services"
 SERVICE=$(curl -k -s -H "Authorization: Bearer $LOGIN_TOKEN" $HOST/api/endpoints/${ENDPOINT_ID}/docker/services | jq -c ".[] | select( .Spec.Name==(\"$SERVICE_NAME\"))")
+
+
 
 echo "SERVICE IS"
 echo $SERVICE

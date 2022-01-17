@@ -4,6 +4,8 @@ source /etc/profile
 
 cat /etc/cron.d/run_cron
 
+echo "TRYING TO RUN SCRIPT"
+
 USERNAME=$PORTAINER_USERNAME
 PASSWORD=$PORTAINER_PASSWORD
 HOST=$PORTAINER_HOST
